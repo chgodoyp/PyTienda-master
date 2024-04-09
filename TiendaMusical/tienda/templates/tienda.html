@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+
+
+{% load static %}
+
+{% block titulo %}
+Tienda 
+{% endblock titulo %}
+
+{% block styles %}
+ 
+<link href="{% static 'tienda/css/style.css' %}" rel="stylesheet" type="text/css">
+{% endblock styles %}
+
+{% block contenido %}
+<div class="container py-3 bg-grey" >
+    <div style="float: right; ;">
+
+
+
+        {% if request.user.is_authenticated %}
+
+                {% include "carro.html" %}
+        {% else %}
+
+            <div class="alert alert-danger text-center " style="margin:5px; ">Iniciar sesion para ver carro</div> 
+
+        {% endif %}
+
+     
+    </div>
+    <div class="column">
+
+    {% for disco in entity %}
+
+    <div class="col-md-9 "> 
+        <div class="d-flex my-5 " style="width: 100%; margin: 5px 5px; height:160px; ">
+            <div class="mx-5">
+                {% if disco.imagen %}
+                <img src="{{disco.imagen.url}}" class="rounded" width="160" height="160" alt="">
+                {% endif %}
+
+            </div>
+
+            <div class="column ">
+                <h5 class="card-title" >{{disco.nombre}}</h5>
+                <div class="d-flex w-100">
+                    <div class="w-100" style="min-width:400px;">
+                        <p class="card-text">{{disco.artista}}</p>
+                        <p class="card-text">$&nbsp;{{disco.precio}}</p>
+                    </div>
+                    <div class="column">
+                        <div>
+                            <p class="card-text">Stock:&nbsp; {{disco.stock}}</p>
+                            <p class="card-text">Vendidos:&nbsp;{{disco.vendidos}}</p>
+                        </div>
+
+                        
+                        <div class="card-footer text-end">
+                            {% if disco.stock > 0  %}
+                            <a href="{% url 'carro:agregar' disco.id %}"  class="btn btn-success mt-2">Agregar</a>
+                             {% else %}   
+                             <a href="#"  class="btn btn-danger mt-2">OUT</a>
+                             {% endif %}
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div> 
+
+
+
+
+
+    {% endfor %}
+    </div>
+
+    <div>
+        {% include 'paginator.html' %}
+    </div>
+</div>
+{% endblock %}
+
+  

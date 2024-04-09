@@ -1,0 +1,107 @@
+{% extends "base.html" %}
+{% load static %}
+
+
+
+{% block titulo %}
+Registrarse 
+{% endblock titulo %}
+
+{% block styles %}
+
+<link href="{% static 'auth/css/style.css' %}" rel="stylesheet" type="text/css">
+{% endblock styles %}
+
+
+{% block contenido %}
+
+  {% if messages %}  
+  <ul>   
+      {% for message in messages %}  
+          <li>{{ message }}</li>  
+          {% endfor %}  
+  </ul>   
+{% endif %}  
+
+
+{% if errores %}
+    <ul>
+        {% for field, error_list in errores.items %}
+            {% for error in error_list %}
+                <li>{{ error }}</li>
+            {% endfor %}
+        {% endfor %}
+    </ul>
+{% endif %}
+
+<main class="container">
+  <form method="POST">
+      <section class="row">
+          <h1>Bienvenido</h1>
+      </section>
+      <section class="row">
+          <fieldset class="col-12">
+              <label for="">{{ formulario.username.label }}</label>
+              {{ formulario.username }}
+              <p class="invalid-feedback">
+                  {{ formulario.username.error }}
+              </p>
+          </fieldset>
+      </section>
+      <section class="row">
+          <fieldset class="col-6">
+              <label for="">{{ formulario.first_name.label }}</label>
+              {{ formulario.first_name }}
+              <p class="invalid-feedback">
+                  {{ formulario.first_name.error }}
+              </p>
+          </fieldset>
+          <fieldset class="col-6">
+              <label for="">{{ formulario.last_name.label }}</label>
+              {{ formulario.last_name }}
+              <p class="invalid-feedback">
+                  {{ formulario.last_name.error }}
+              </p>
+          </fieldset>
+      </section>
+      <section class="row">
+          <fieldset class="col-12">
+              <label for="">{{ formulario.email.label }}</label>
+              {{ formulario.email }}
+              <p class="invalid-feedback">
+                  {{ formulario.email.error }}
+              </p>
+          </fieldset>
+      </section>
+      <section class="row">
+          <fieldset class="col-6">
+              <label for="">{{ formulario.password1.label }}</label>
+              {{ formulario.password1 }}
+              {{ formulario.password1.help_text }}
+              <p class="invalid-feedback">
+                  {{ formulario.password1.error }}
+              </p>
+          </fieldset>
+          <fieldset class="col-6">
+              <label for="">{{ formulario.password2.label }}</label>
+              {{ formulario.password2 }}
+              {{ formulario.password2.help_text }}
+              <p class="invalid-feedback">
+                  {{ formulario.password2.error }}
+              </p>
+          </fieldset>
+      </section>
+      {% csrf_token %}
+      <section class="row">
+          <fieldset class="col">
+              <button class="btn btn-success" role="submit" type="submit">Registrar</button>
+          </fieldset>
+      </section>
+  </form>
+  <p>Ya tienes una cuenta? <a href="{% url 'Login' %}" class="link-info">Inicia sesion aqui</a></p>
+
+</main>
+
+{% endblock contenido %}
+
+

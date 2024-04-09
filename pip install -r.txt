@@ -1,0 +1,9 @@
+python -m venv tutorial-env
+tutorial-env\Scripts\activate
+
+pip install -r df.txt
+
+tiendamusical/py manage.py runserver
+
+admin account
+chamorro 1234
